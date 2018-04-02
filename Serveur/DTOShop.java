@@ -1,10 +1,13 @@
+package Serveur;
 
 public class DTOShop {
+	
 	private String  ShopName;
 	private String ShopID;
     private String Product;
     private String Location;
     private String Turnover;
+    
 	public DTOShop(String shopName, String shopID, String product, String location, String turnover) {
 		ShopName = shopName;
 		ShopID = shopID;
@@ -12,12 +15,6 @@ public class DTOShop {
 		Location = location;
 		Turnover = turnover;
 	}
-
-
-    public DTOShop() {
-		// TODO Auto-generated constructor stub
-	}
-
 
 	public String getShopName() {
 		return ShopName;

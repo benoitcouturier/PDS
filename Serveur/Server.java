@@ -1,45 +1,31 @@
+package Serveur;
 import java.awt.Color;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.SQLException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.SwingUtilities;
-
-import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
-import javafx.scene.Scene;
-import javafx.scene.control.ListView;
-import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
 
 public class Server extends JFrame {
-	 //public static final int PORT = 20012;
-    public static int port = 20013;
-    public static final int MAX_CONNECTION = 21;
-    public JTextArea msg;
-    public JScrollPane scrollp;
+	
+	private static final long serialVersionUID = 1L;
+	private static int port = 20013;
+    private JTextArea textField;
+    private JScrollPane scrollp;
 
-    public Server(){
+    public Server() {
         super("Server Log");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
         setSize(500,500);
-        msg = new JTextArea();
-        scrollp = new JScrollPane(msg);
+        textField = new JTextArea();
+        scrollp = new JScrollPane(textField);
         scrollp.setBounds(20, 20, 400, 400);
-        msg.setEditable(false);
+        textField.setEditable(false);
         scrollp.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         this.getContentPane().setBackground(Color.black);
         this.getContentPane().add(scrollp);
@@ -53,15 +39,17 @@ public class Server extends JFrame {
         serverSocket = new ServerSocket(port);
         Socket client;
         int i=0;
-        while(true){
-                server.msg.append("\nWaiting for Connection"+i);
-                client = serverSocket.accept();
-                Service s = new Service(client,server,i,pool);
-                s.start();
-                server.msg.append("\nconnection"+"is connected");
-                i++;
-                }
-     
-   
+        while (true) {
+            server.textField.append("\nWaiting for Connection"+i);
+            client = serverSocket.accept();
+            Service s = new Service(client,server,i,pool);
+            s.start();
+            server.textField.append("\nconnection"+"is connected");
+            i++;
+        }
+    }
+    
+    public JTextArea getTextField() {
+    	return this.textField;
     }
 }
